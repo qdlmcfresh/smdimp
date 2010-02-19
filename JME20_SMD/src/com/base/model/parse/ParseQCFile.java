@@ -271,6 +271,7 @@ public class ParseQCFile {
                         sequence = true;
                     } else if (!original[i].startsWith("\"") && original[i].endsWith("\"")) {
                         cleaned.add(j, cleaned.get(j).concat(original[i]));
+                        cleaned.remove(j + 1);
                         sequence = false;
                         if (chartodel != null) {
                             cleaned.add(j, cleaned.get(j).replaceAll(chartodel, ""));
@@ -287,6 +288,7 @@ public class ParseQCFile {
                     } else {
                         if (sequence) {
                             cleaned.add(j, cleaned.get(j).concat(original[i]));
+                            cleaned.remove(j + 1);
                             if (chartodel != null) {
                                 cleaned.add(j, cleaned.get(j).replaceAll(chartodel, ""));
                                 cleaned.remove(j + 1);
@@ -309,6 +311,41 @@ public class ParseQCFile {
 
         return cleaned.toArray(original);
     }
+
+//        private String[] clean(String[] original, int positions) {
+//        String[] cleaned = null;
+//        try {
+//            cleaned = new String[positions];
+//            int j = 0;
+//            boolean sequence = false;
+//            for (int i = 0; i < original.length; i++) {
+//                if (!original[i].equals("")) {
+//                    if (original[i].startsWith("\"") && !original[i].endsWith("\"")) {
+//                        cleaned[j] = original[i];
+//                        sequence = true;
+//                    } else if (!original[i].startsWith("\"") && original[i].endsWith("\"")) {
+//                        cleaned[j] = cleaned[j].concat(original[i]);
+//                        sequence = false;
+//                        j++;
+//                    } else if (original[i].startsWith("\"") && original[i].endsWith("\"")) {
+//                        cleaned[j] = original[i];
+//                        j++;
+//                    } else {
+//                        if (sequence) {
+//                            cleaned[j] = cleaned[j].concat(original[i]);
+//                        } else {
+//                            cleaned[j] = original[i];
+//                            j++;
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception Ex) {
+//            Ex.printStackTrace();
+//        }
+//
+//        return cleaned;
+//    }
 
     public static ArrayList<String> readFile(URL file) {
         ArrayList<String> lines = null;
