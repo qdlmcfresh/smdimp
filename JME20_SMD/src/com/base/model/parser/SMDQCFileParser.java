@@ -308,7 +308,12 @@ public class SMDQCFileParser extends SMDParser {
     private String checkIsRelative(String path) {
         String mname = "";
         try {
-            mname = new File(path).getName();
+            int index = path.lastIndexOf("\\");
+            if (index > -1) {
+                mname = path.substring(index + 1, path.length());
+            } else {
+                mname = new File(path).getName();
+            }
         } catch (Exception Ex) {
             logger.log(Level.SEVERE, "Error, recovering the name of the path.", Ex);
         }
